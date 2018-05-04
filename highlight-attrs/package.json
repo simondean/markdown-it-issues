@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "highlightjs": "^9.10.0",
+        "markdown-it": "^8.4.1",
+        "markdown-it-attrs": "^1.2.1"
+    }
+}
