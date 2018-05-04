@@ -1,14 +1,15 @@
-const MarkdownIt = require('markdown-it');
-const MarkdownItAttrs = require('markdown-it-attrs');
-const HighlightJs = require('highlightjs/highlight.pack.js');
+const markdownIt = require('markdown-it');
+const markdownItAttrs = require('markdown-it-attrs');
+const highlightJs = require('highlightjs/highlight.pack.js');
+const fs = require('fs');
 
-var md = MarkdownIt({
+var md = markdownIt({
         linkify: true, html: true,
         highlight: function (str, lang) {
-            if (HighlightJs.getLanguage(lang)) {
+            if (highlightJs.getLanguage(lang)) {
                 try {
                     return '<pre class="highlight lang-' + lang + '"><code>' +
-                        HighlightJs.highlight(lang, str, true).value +
+                        highlightJs.highlight(lang, str, true).value +
                         '</code></pre>';
                 } catch (__) { }
             }
@@ -16,7 +17,7 @@ var md = MarkdownIt({
             return '<pre class="highlight"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
         }
     })
-    .use(MarkdownItAttrs);
+    .use(markdownItAttrs);
 
 var html = md.render('# Example\n' + 
 '\n' + 
@@ -27,4 +28,4 @@ var html = md.render('# Example\n' +
 '```\n' + 
 '\n');
 
-console.log(html);
+fs.writeFileSync('index.html', html);
